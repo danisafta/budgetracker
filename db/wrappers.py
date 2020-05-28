@@ -34,15 +34,11 @@ def insert_cash(number: int, total_value: int, currency: str):
     print("SUCCESFULLY ADDED CASH INTO YOUR WALLET")
 
 
-def insert_stocks(number: int, total_value: int, ticker: str, day=datetime.now().day, month=datetime.now().month, year=datetime.now().year):
-    '''
-    insert stocks to portfolio
-    :param number: number of stocks to be added
-    :param total_value: total value spent on that stocks
-    :param ticker: e.g TSLA, AMZN
-    :return:
+def insert_stocks(number: int, total_value: int, ticker: str, day=datetime.now().day, month=datetime.now().month,
+                  year=datetime.now().year):
     '''
 
+    '''
     col_stocks.insert_one({
         'total_value': total_value,
         'number': number,
@@ -106,7 +102,7 @@ def get_stocks():
     return col_stocks.find()
 
 
-def get_remaining_money(month=None):
+def get_remaining_money(month=None) -> int:
     money_spent = 0
     for expense in get_expense(month):
         money_spent += expense['value']

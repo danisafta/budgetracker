@@ -1,15 +1,15 @@
-from stocks_manager import vedemdupa
+from stocks_manager import manager
 import unittest
 
 
 class TestCluster(unittest.TestCase):
-    total = vedemdupa.get_total_invested()
-    tickers = vedemdupa.get_tickers_from_db()
-    tt = vedemdupa.get_investment_tuples(tickers=tickers)
-    weights = vedemdupa.get_weights_dict(tt, total)
-    data = vedemdupa.get_financial_data(tickers)
-    ret = vedemdupa.get_returns(data)
-    ar = vedemdupa.get_annual_returns(ret)
+    total = manager.get_total_invested()
+    tickers = manager.get_tickers_from_db()
+    tt = manager.get_investment_tuples(tickers=tickers)
+    weights = manager.get_weights_dict(tt, total)
+    data = manager.get_financial_data(tickers)
+    ret = manager.get_simple_returns(data)
+    ar = manager.get_annual_returns(ret)
 
     def test_data(self):
         self.assertIsNotNone(self.data)
@@ -32,7 +32,7 @@ class TestCluster(unittest.TestCase):
         self.assertAlmostEqual(all, 1.0, delta=0.0001)
 
     def test_return(self):
-        retun = vedemdupa.get_portfolio_return(weights= self.weights, annual_returns=self.ar)
+        retun = manager.get_portfolio_return(weights= self.weights, annual_returns=self.ar)
         self.assertLess(retun, 1.0)
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 from db.wrappers import *
+from stocks_manager.manager import get_portfolio_summary
 import argparse
 def is_number(var):
     try:
@@ -9,8 +10,9 @@ def is_number(var):
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('-g', '--get', type=str, choices=['money_left', 'expense', 'stocks', 'cash', 'crypto'],
-                    help="specifies that is a get request")
+parser.add_argument('-g', '--get', type=str, choices=['money_left', 'expense', 'stocks', 'cash', 'crypto', 'portfolio'],
+                    help="Request data from the server. e.g python main.py -g portfolio will return portfolio summary")
+
 parser.add_argument('-i', '--insert', type=str, choices=['crypto', 'expense', 'stocks', 'cash'],
                     help="specifies that is a insert request")
 
@@ -30,6 +32,8 @@ def args_handle(args=args):
     elif args.get == 'stocks':
         for stock in get_stocks():
             print(stock)
+    elif args.get == 'portfolio':
+        get_portfolio_summary()
 
     if args.insert == 'expense':
         value = args.value
