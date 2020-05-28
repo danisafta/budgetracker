@@ -34,7 +34,7 @@ def insert_cash(number: int, total_value: int, currency: str):
     print("SUCCESFULLY ADDED CASH INTO YOUR WALLET")
 
 
-def insert_stocks(number: int, total_value: int, ticker: str):
+def insert_stocks(number: int, total_value: int, ticker: str, day=datetime.now().day, month=datetime.now().month, year=datetime.now().year):
     '''
     insert stocks to portfolio
     :param number: number of stocks to be added
@@ -47,7 +47,10 @@ def insert_stocks(number: int, total_value: int, ticker: str):
         'total_value': total_value,
         'number': number,
         'ticker': ticker,
-        'ppu': total_value / number
+        'ppu': total_value / number,
+        "day": day,
+        "month": month,
+        "year": year
     })
     print("SUCCESFULLY ADDED STOCKS INTO YOUR WALLET")
 
@@ -106,6 +109,5 @@ def get_stocks():
 def get_remaining_money(month=None):
     money_spent = 0
     for expense in get_expense(month):
-
         money_spent += expense['value']
     return ANNUALY_BUDGET - money_spent
