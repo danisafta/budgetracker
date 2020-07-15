@@ -27,13 +27,14 @@ class TestCluster(unittest.TestCase):
     def test_weights(self):
         self.assertIsInstance(self.weights, dict)
         all = 0
-        for _, value  in self.weights.items():
+        for _, value in self.weights.items():
             all += value
         self.assertAlmostEqual(all, 1.0, delta=0.0001)
 
     def test_return(self):
-        retun = manager.get_portfolio_return(weights= self.weights, annual_returns=self.ar)
+        retun = manager.get_portfolio_return(weights=self.weights, annual_returns=self.ar)
         self.assertLess(retun, 1.0)
+
 
 if __name__ == "__main__":
     unittest.main()

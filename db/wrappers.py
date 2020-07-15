@@ -50,6 +50,16 @@ def insert_stocks(number: int, total_value: int, ticker: str, day=datetime.now()
     })
     print("SUCCESFULLY ADDED STOCKS INTO YOUR WALLET")
 
+def delete_stocks(ticker: str):
+    '''
+
+    '''
+    col_stocks.delete_many({
+        'ticker': ticker,
+    })
+    print("SUCCESFULLY DELETED {} FROM YOUR WALLET".format(ticker))
+
+
 
 def insert_expense(value: int, day=datetime.now().day, month=datetime.now().month, year=datetime.now().year,
                    details=""):
@@ -102,8 +112,17 @@ def get_stocks():
     return col_stocks.find()
 
 
+def nvl(n, v=0) -> int:
+    '''
+    returns n if n is not null and a value for manipulating null values in additions for eg.
+    '''
+    if n == None:
+        return v
+    return n
+
+
 def get_remaining_money(month=None) -> int:
     money_spent = 0
     for expense in get_expense(month):
-        money_spent += expense['value']
+        money_spent += nvl(expense['value'], 0)
     return ANNUALY_BUDGET - money_spent
